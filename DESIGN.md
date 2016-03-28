@@ -16,3 +16,8 @@
 
 * Avocado Smasher is a one-use super attack that clears the screen
 * Coffee Scoffer appears to give Superbite an energy burst
+
+## Resources
+
+* http://opengameart.org/content/magic-cliffs-environment
+* http://bevouliin.com/yeti-monster-sprite-sheets/

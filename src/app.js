@@ -19,6 +19,11 @@ export function init () {
     .entries(states)
     .forEach(([key, state]) => game.state.add(key, state));
 
+  // Enable debug mode for development
+  if (window.location.hostname == 'localhost') {
+    game.DEBUG = true;
+  }
+
   game.state.start('Boot');
 
   return game;
