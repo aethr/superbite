@@ -18,7 +18,7 @@ export default class Boot extends Phaser.State {
 
     // Initialize physics engines here. Phaser builds including Arcade Physics
     // enable it by default.
-    //this.physics.startSystem(Phaser.Physics.P2);
+    this.physics.startSystem(Phaser.Physics.ARCADE);
 
     // Adjust how many pointers Phaser will check for input events.
     this.input.maxPointers = 2;
@@ -32,7 +32,7 @@ export default class Boot extends Phaser.State {
 
     // Tells Phaser to smooth texture corners and sub-pixels when rendering the
     // game canvas.
-    this.stage.smoothed = true;
+    this.stage.smoothed = false;
   }
 
   preload () {

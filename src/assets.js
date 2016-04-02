@@ -45,6 +45,16 @@ export default {
       type: 'image',
       key: 'bg-layer-ground',
       url: 'stages/magic-cliffs/far-grounds.png'
+    },
+    {
+      type: 'spritesheet',
+      key: 'avocado-smasher',
+      url: 'characters/green-bot.png',
+      frameWidth: 16,
+      frameHeight: 16,
+      frameMax: 24,
+      margin: 0,
+      spacing: 0
     }
   ]
 };
