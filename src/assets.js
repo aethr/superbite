@@ -47,6 +47,21 @@ export default {
       url: 'stages/magic-cliffs/far-grounds.png'
     },
     {
+      type: 'image',
+      key: 'grass-left',
+      url: 'stages/magic-cliffs/grass-edge-left.png'
+    },
+    {
+      type: 'image',
+      key: 'grass-fill',
+      url: 'stages/magic-cliffs/grass-fill.png'
+    },
+    {
+      type: 'image',
+      key: 'grass-right',
+      url: 'stages/magic-cliffs/grass-edge-right.png'
+    },
+    {
       type: 'spritesheet',
       key: 'avocado-smasher',
       url: 'characters/green-bot.png',
