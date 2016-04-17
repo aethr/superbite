@@ -12,11 +12,10 @@ import AvocadoSmasher from '../objects/AvocadoSmasher';
 export default class Game extends Phaser.State {
 
   create () {
-//    const { centerX: x, centerY: y } = this.world;
     this.world.setBounds(0, 0, 2000, 640);
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
-    this.game.physics.arcade.gravity.y = 200;
+    this.game.physics.arcade.gravity.y = 300;
 
     this.groups = {};
     this.groups['level'] = this.game.add.group();
@@ -34,25 +33,18 @@ export default class Game extends Phaser.State {
     this.add.existing(this.prefabs['level-grass']);
     this.add.existing(this.prefabs['avocado-smasher']);
 
-
     this.camera.follow(this.prefabs['avocado-smasher']);
-
   }
 
   update() {
-
-    this.game.physics.arcade.collide(this.prefabs['avocado-smasher'], this.prefabs['level-grass'], this.tileCollision);
-
-  }
-
-  tileCollision(actor, tile) {
-    actor.body.blocked.down = true;
+    // Handle player colliding with a ground tile
+    this.game.physics.arcade.collide(this.prefabs['avocado-smasher'], this.prefabs['level-grass'], Ground.collide);
   }
 
   render () {
     if (this.game.DEBUG) {
       this.game.debug.text(' vx: ' + this.prefabs['avocado-smasher'].body.velocity.x + '  vy: ' + this.prefabs['avocado-smasher'].body.velocity.y, 16, 16);
-      this.game.debug.text('nvx: ' + this.prefabs['avocado-smasher'].body.newVelocity.x + ' nvy: ' + this.prefabs['avocado-smasher'].body.newVelocity.y, 16, 32);
+      this.game.debug.text('onFloor: ' + this.prefabs['avocado-smasher'].body.onFloor() + ' jumpCounter: ' + this.prefabs['avocado-smasher'].jumpCounter, 16, 32);
       this.game.debug.cameraInfo(this.camera, 16, 54);
     }
   }
