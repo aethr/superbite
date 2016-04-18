@@ -12,7 +12,9 @@ import AvocadoSmasher from '../objects/AvocadoSmasher';
 export default class Game extends Phaser.State {
 
   create () {
-    this.world.setBounds(0, 0, 1024, 640);
+    // Leave some headroom in the Y space above the camera bounds so the
+    // world geometry doesn't cause the player to bump their head
+    this.world.setBounds(0, -256, 1024, 896);
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
     this.game.physics.arcade.gravity.y = 300;
@@ -37,8 +39,10 @@ export default class Game extends Phaser.State {
       'avocado-smasher': new AvocadoSmasher(this, {x: 64, y: 290}, {group: 'prefabs'})
     };
 
-    // Simple camera follow on the player
-    this.camera.follow(this.prefabs['avocado-smasher']);
+    // Simple camera follow on the player, bounded to the "normal" world coords
+    this.camera.follow(this.prefabs['avocado-smasher'], Phaser.Camera.FOLLOW_PLATFORMER);
+    this.camera.bounds = new Phaser.Rectangle(0, 0, 1024, 640);
+
 
     if (this.game.DEBUG) {
       this.game.time.advancedTiming = true;

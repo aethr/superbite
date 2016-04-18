@@ -36,8 +36,6 @@ export default class AvocadoSmasher extends Prefab {
 
     // Don't use the full sprite width for bounding, so that platform clipping
     // appears to use the sprites feet
-//    this.body.setSize(this.width, this.height);
-//    this.body.setSize((this.body.sourceWidth * this.drawScale), this.body.sourceHeight);
     this.body.setSize(this.body.sourceWidth - 6, this.body.sourceHeight);
 
     // Define animations based on sprite sheet

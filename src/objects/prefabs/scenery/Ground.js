@@ -26,11 +26,11 @@ export default class Ground extends Phaser.TileSprite {
     // Scale the sprite (we like the pixelated look)
     this.scale.setTo(this.spriteScale, this.spriteScale);
 
+    // Setup physics
     this.gameState.game.physics.arcade.enable(this);
     this.body.setSize(this.width, this.height);
     this.body.allowGravity = false;
     this.body.immovable = true;
-    this.body.friction = new Phaser.Point(40, 40);
     this.body.offset = new Phaser.Point(0, 8);
     this.body.checkCollision.down = false;
     this.body.checkCollision.left = false;
