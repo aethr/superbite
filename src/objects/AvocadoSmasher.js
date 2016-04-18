@@ -14,28 +14,37 @@ export default class AvocadoSmasher extends Prefab {
     properties.texture = 'avocado-smasher';
     super(gameState, position, properties);
 
-    this.spriteScale = 2;
+    // Internal properties we'll use for movement / animation
+    this.drawScale  = 2;
     this.walkForce = 80;
     this.jumpForce = 10000;
     this.jumpStarted = false;
     this.jumpCounter = 0;
     this.maxJumps = 2;
 
+    // Initial drawing parameters
+    this.scale.setTo(this.drawScale, this.drawScale);
+    this.anchor.setTo(0.5);
+
+    // Setup physics
     this.gameState.game.physics.arcade.enable(this);
     this.body.collideWorldBounds = true;
     this.body.mass = 50;
     this.body.maxVelocity = new Phaser.Point(100, 1000);
+    // Adjust bounding box to match scaling of the sprite
+    // Don't use the full sprite width for bounding, so that platform clipping
+    // appears to use the sprites feet
+    this.body.setSize(this.width - 6, this.height, -this.width * 0.5, -this.height * 0.5);
 
+    // Define animations based on sprite sheet
     this.animations.add('idle', [0, 0, 0, 0, 1, 0, 0, 2, 0], 4, true);
     this.animations.add('walking', [8, 9, 10, 11, 12], 10, true);
     this.animations.add('jumping', [3], 10, true);
     this.animations.add('falling', [5], 10, true);
 
-    this.scale.setTo(this.spriteScale, this.spriteScale);
-    this.anchor.setTo(0.5);
-
     this.animations.play('idle');
 
+    // Allow for this sprite to respond to keyboard controls
     this.cursors = this.gameState.game.input.keyboard.createCursorKeys();
   }
 
@@ -50,7 +59,6 @@ export default class AvocadoSmasher extends Prefab {
       // move left
       this.body.acceleration.x += -this.walkForce;
     } else {
-//    if (!this.cursors.left.isDown && !this.cursors.right.isDown) {
       this.body.acceleration.x = 0;
     }
 
@@ -60,6 +68,7 @@ export default class AvocadoSmasher extends Prefab {
       // Reset double jump
       this.jumpCounter = 0;
     }
+    // Jump!
     if (this.cursors.up.isDown && !this.jumpStarted && this.jumpCounter < this.maxJumps) {
       this.body.acceleration.y += -this.jumpForce;
       this.jumpStarted = true;
@@ -71,9 +80,9 @@ export default class AvocadoSmasher extends Prefab {
 
     // Mirror sprite left/right based on direction of movement
     if (this.body.velocity.x > 0) {
-      this.scale.setTo(this.spriteScale, this.spriteScale);
+      this.scale.setTo(this.drawScale, this.drawScale);
     } else if (this.body.velocity.x < 0) {
-      this.scale.setTo(-this.spriteScale, this.spriteScale);
+      this.scale.setTo(-this.drawScale, this.drawScale);
     }
 
     // Trigger animations based on current movement
