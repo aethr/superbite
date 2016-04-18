@@ -39,6 +39,10 @@ export default class Game extends Phaser.State {
 
     // Simple camera follow on the player
     this.camera.follow(this.prefabs['avocado-smasher']);
+
+    if (this.game.DEBUG) {
+      this.game.time.advancedTiming = true;
+    }
   }
 
   update() {
@@ -49,6 +53,7 @@ export default class Game extends Phaser.State {
   render () {
     if (this.game.DEBUG) {
       this.game.debug.text(' vx: ' + this.prefabs['avocado-smasher'].body.velocity.x + '  vy: ' + this.prefabs['avocado-smasher'].body.velocity.y, 16, 16);
+      this.game.debug.text('fps: ' + this.game.time.fps, 540, 16);
       this.game.debug.cameraInfo(this.camera, 16, 54);
 
       this.game.debug.body(this.prefabs['avocado-smasher'], 'rgba(0, 128, 0, 0.7)', false);
