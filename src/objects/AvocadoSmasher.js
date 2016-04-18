@@ -12,10 +12,12 @@ export default class AvocadoSmasher extends Prefab {
 
   constructor (gameState, position, properties) {
     properties.texture = 'avocado-smasher';
+    properties.scale = 2;
+
     super(gameState, position, properties);
 
     // Internal properties we'll use for movement / animation
-    this.drawScale  = 2;
+    this.drawScale  = properties.scale;
     this.walkForce = 80;
     this.jumpForce = 10000;
     this.jumpStarted = false;
@@ -30,11 +32,13 @@ export default class AvocadoSmasher extends Prefab {
     this.gameState.game.physics.arcade.enable(this);
     this.body.collideWorldBounds = true;
     this.body.mass = 50;
-    this.body.maxVelocity = new Phaser.Point(100, 1000);
-    // Adjust bounding box to match scaling of the sprite
+    this.body.maxVelocity = new Phaser.Point(160, 1000);
+
     // Don't use the full sprite width for bounding, so that platform clipping
     // appears to use the sprites feet
-    this.body.setSize(this.width - 6, this.height, -this.width * 0.5, -this.height * 0.5);
+//    this.body.setSize(this.width, this.height);
+//    this.body.setSize((this.body.sourceWidth * this.drawScale), this.body.sourceHeight);
+    this.body.setSize(this.body.sourceWidth - 6, this.body.sourceHeight);
 
     // Define animations based on sprite sheet
     this.animations.add('idle', [0, 0, 0, 0, 1, 0, 0, 2, 0], 4, true);
@@ -103,4 +107,7 @@ export default class AvocadoSmasher extends Prefab {
     }
   }
 
+  render () {
+    this.gameState.game.debug.body(this, 'rgba(255, 255, 0, 0.4)');
+  }
 }

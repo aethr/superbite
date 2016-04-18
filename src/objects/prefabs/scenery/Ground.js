@@ -13,27 +13,31 @@ export default class Ground extends Phaser.TileSprite {
 
   constructor (gameState, position, properties) {
     properties.texture = 'grass-fill';
-    properties.group = 'level';
+    properties.group = 'ground';
+    properties.scale = 2;
 
-    super(gameState.game, position.x, position.y, properties.width, properties.height, properties.texture);
+    // Initialize using the Prefab constructor, taking sprite scaling into account
+    super(gameState.game, position.x, position.y, properties.width / properties.scale, properties.height / properties.scale, properties.texture);
 
-    this.spriteScale = 2;
+    this.spriteScale = properties.scale;
 
     this.gameState = gameState;
 
-    this.gameState.groups[properties.group].add(this);
-
+    // Scale the sprite (we like the pixelated look)
     this.scale.setTo(this.spriteScale, this.spriteScale);
 
     this.gameState.game.physics.arcade.enable(this);
-
+    this.body.setSize(this.width, this.height);
     this.body.allowGravity = false;
     this.body.immovable = true;
     this.body.friction = new Phaser.Point(40, 40);
-    this.body.offset = new Phaser.Point(0, 4);
+    this.body.offset = new Phaser.Point(0, 8);
     this.body.checkCollision.down = false;
     this.body.checkCollision.left = false;
     this.body.checkCollision.right = false;
+
+    // Add the sprite to the 'ground' group, and to the game world
+    this.gameState.groups[properties.group].add(this);
   }
 
   static collide(prefab, ground) {
