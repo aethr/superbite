@@ -31,10 +31,12 @@ export default class Ground extends Phaser.TileSprite {
     this.body.setSize(this.width, this.height);
     this.body.allowGravity = false;
     this.body.immovable = true;
-    this.body.offset = new Phaser.Point(0, 8);
+    this.body.offset.set(0, 8);
     this.body.checkCollision.down = false;
     this.body.checkCollision.left = false;
     this.body.checkCollision.right = false;
+
+    this.body.bounce.set(0.8);
 
     // Add the sprite to the 'ground' group, and to the game world
     this.gameState.groups[properties.group].add(this);

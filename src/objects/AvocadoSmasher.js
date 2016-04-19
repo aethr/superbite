@@ -31,8 +31,7 @@ export default class AvocadoSmasher extends Prefab {
     // Setup physics
     this.gameState.game.physics.arcade.enable(this);
     this.body.collideWorldBounds = true;
-    this.body.mass = 50;
-    this.body.maxVelocity = new Phaser.Point(160, 1000);
+    this.body.maxVelocity.set(160, 1000);
 
     // Don't use the full sprite width for bounding, so that platform clipping
     // appears to use the sprites feet
